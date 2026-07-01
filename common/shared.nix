@@ -1,0 +1,38 @@
+# shared.nix — imported by ALL hosts (laptop, desktop, server)
+# Only put things here that make sense on every machine, including a headless server.
+{ pkgs, ... }: {
+
+  time.timeZone = "America/New_York";
+
+ # Core CLI tools every machine needs
+  environment.systemPackages = with pkgs; [
+    neovim  	# Text editor
+    curl    	# Network transfer tool
+    wget    	# File downloader
+    git     	# Version control
+    unzip
+    zip
+  ];
+ # Enable flakes + new nix CLI
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+ # Bootloader (works for all three machines as long as they're all EFI)
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+ # Networking
+  networking.networkmanager.enable = true;
+
+ # --- Tailscale ---
+ # Every host joins the tailnet. After first boot, run `sudo tailscale up`
+ # once on each machine to authenticate (see README).
+  services.tailscale.enable = true;
+
+ # tailscale0 is treated as a trusted interface: anything reachable over
+ # the tailnet is allowed through the firewall unconditionally, on any
+ # port, without needing a per-service allowedTCPPorts entry. This is the
+ # entire security boundary for admin UIs (CouchDB, Sonarr/Radarr/etc,
+ # qBittorrent's WebUI, SSH) — nothing outside the tailnet can reach them.
+ # Jellyfin/Jellyseerr additionally get a public URL via Tailscale Funnel
+ # (see hosts/server/media.nix) for family who don't want to install
+ # Tailscale.
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+}
