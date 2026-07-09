@@ -38,16 +38,12 @@
     openFirewall = true;
   };
 
- # --- Tailscale ---
-  services.tailscale.enable = true;
-
   # ── Firewall ──────────────────────────────────────────────────────────
   # No general allowedTCPPorts here on purpose. Every service on this
   # server (SSH, CouchDB, Jellyfin, the Starr stack, qBittorrent) is
   # reachable only via the tailnet — see the trustedInterfaces comment in
   # common/shared.nix. Family-facing access to Jellyfin/Jellyseerr goes
   # through Tailscale Funnel instead of opening the firewall.
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
   networking.firewall.enable = true;
 
   # ── Shared media/vault storage + permissions group ─────────────────────
