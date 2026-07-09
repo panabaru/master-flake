@@ -32,13 +32,8 @@
     enable = true;
     settings.PermitRootLogin = "no";         # Never allow direct root SSH
     settings.PasswordAuthentication = false; # SSH keys only (more secure)
-    # FIX: this was `true`, which opens port 22 on EVERY interface —
-    # including any public/WAN one — directly contradicting the "tailnet
-    # only" model described throughout this file. tailscale0 is already a
-    # trusted interface (see networking.firewall.trustedInterfaces in
-    # common/shared.nix), so SSH is already fully reachable over Tailscale
-    # without this. Set to false so port 22 is closed everywhere except
-    # tailscale0.
+   # SSH is already fully reachable over Tailscale without this.
+   # Set to false so port 22 is closed everywhere except tailscale0.
     openFirewall = false;
   };
 
@@ -61,14 +56,6 @@
     extraGroups = [ "wheel" "networkmanager" "media" ];
     # Set a password with: passwd graintrain
     # Or use: initialHashedPassword = "..."; (generate with mkpasswd)
-    #
-    # VERIFY BEFORE DEPLOYING: this must be the exact contents of
-    # ~/.ssh/id_ed25519.pub on the laptop (or whichever key you intend to
-    # SSH in with). There's no way to confirm from inside this repo that
-    # the key below matches an actual private key on your laptop — if it
-    # doesn't, `ssh graintrain@<server>` will be rejected with
-    # "Permission denied (publickey)". See the setup instructions for the
-    # exact command to check/generate/copy it.
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII0fASl+vD4hNqi8I4maxxeVDMNZzRvo3mhxe2U1G+4R graintrain@laptop"
     ];

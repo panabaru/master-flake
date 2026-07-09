@@ -24,7 +24,10 @@
  # --- Tailscale ---
  # Every host joins the tailnet. After first boot, run `sudo tailscale up`
  # once on each machine to authenticate (see README).
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
 
  # Opens Tailscale's own UDP port (41641 by default) on every interface.
  # This has nothing to do with SSH/Jellyfin/CouchDB reachability (that's
@@ -34,9 +37,8 @@
  # through a slower DERP server. Safe to open: unsolicited packets on it
  # are simply dropped by tailscaled unless they're part of a real
  # WireGuard handshake from a device already on your tailnet.
-  services.tailscale.openFirewall = true;
 
- # tailscale0 is treated as a trusted interface: anything reachable over
+# tailscale0 is treated as a trusted interface: anything reachable over
  # the tailnet is allowed through the firewall unconditionally, on any
  # port, without needing a per-service allowedTCPPorts entry. This is the
  # entire security boundary for admin UIs (CouchDB, Sonarr/Radarr/etc,

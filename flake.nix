@@ -26,15 +26,6 @@
     nixosConfigurations = {
 
       # --- Laptop ---
-      # FIX: a previous comment here claimed this was renamed to "laptop"
-      # and told you to rebuild with `--flake .#laptop` — but the attribute
-      # below was never actually changed, so that command would have failed
-      # with "flake does not provide attribute ... laptop". Left as
-      # "nixos-t590" because users/shared.nix's `nrs` shell alias rebuilds
-      # with `--flake ~/Downloads/dotfilesAI#$(hostname)`, and this
-      # machine's networking.hostName (hosts/laptop/configuration.nix) is
-      # also "nixos-t590" — the two need to match. Rebuild with:
-      #   sudo nixos-rebuild switch --flake .#nixos-t590
       nixos-t590 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
