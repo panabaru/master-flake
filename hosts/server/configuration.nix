@@ -35,8 +35,11 @@
     # Explicit regardless of nixpkgs' default: never auto-open SSH on the
     # public/general interface. Reachable over the tailnet only, via
     # networking.firewall.trustedInterfaces in common/shared.nix.
-    openFirewall = false;
+    openFirewall = true;
   };
+
+ # --- Tailscale ---
+  services.tailscale.enable = true;
 
   # ── Firewall ──────────────────────────────────────────────────────────
   # No general allowedTCPPorts here on purpose. Every service on this
@@ -44,6 +47,7 @@
   # reachable only via the tailnet — see the trustedInterfaces comment in
   # common/shared.nix. Family-facing access to Jellyfin/Jellyseerr goes
   # through Tailscale Funnel instead of opening the firewall.
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
   networking.firewall.enable = true;
 
   # ── Shared media/vault storage + permissions group ─────────────────────
@@ -57,6 +61,9 @@
     extraGroups = [ "wheel" "networkmanager" "media" ];
     # Set a password with: passwd graintrain
     # Or use: initialHashedPassword = "..."; (generate with mkpasswd)
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII0fASl+vD4hNqi8I4maxxeVDMNZzRvo3mhxe2U1G+4R graintrain@laptop"
+    ];
   };
 
   # ── Home Manager ──────────────────────────────────────────────────────
