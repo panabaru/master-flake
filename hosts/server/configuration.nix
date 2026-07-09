@@ -1,0 +1,88 @@
+# Server — headless, no GUI
+# Hosts: Obsidian vault sync (CouchDB) + media stack (Jellyfin/Jellyseerr/
+# Sonarr/Radarr/Lidarr/Prowlarr/qBittorrent). Everything on this box is
+# reachable only over the tailnet (see common/shared.nix's
+# `networking.firewall.trustedInterfaces`), except Jellyfin + Jellyseerr,
+# which also get a public URL via Tailscale Funnel for family who don't
+# want to install Tailscale — see hosts/server/media.nix.
+{ config, pkgs, inputs, ... }:
+
+{
+  imports = [
+    ./hardware.nix
+    ../../common/shared.nix
+    # NOTE: graphical.nix is NOT imported here — no display server on a server
+    ./couchdb.nix
+    ./media.nix
+  ];
+
+  networking.hostName = "nixos-server-0";
+
+ # ── Server packages ───────────────────────────────────────────────────
+ # These are system-wide CLI tools for anyone SSHing in.
+  environment.systemPackages = with pkgs; [
+    tmux   # Terminal multiplexer — keep sessions alive after disconnect
+    htop   # Interactive process viewer
+    btop   # Nicer process/resource monitor
+    rsync  # File sync/backup utility
+  ];
+
+  # ── SSH ───────────────────────────────────────────────────────────────
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "no";         # Never allow direct root SSH
+    settings.PasswordAuthentication = false; # SSH keys only (more secure)
+    # FIX: this was `true`, which opens port 22 on EVERY interface —
+    # including any public/WAN one — directly contradicting the "tailnet
+    # only" model described throughout this file. tailscale0 is already a
+    # trusted interface (see networking.firewall.trustedInterfaces in
+    # common/shared.nix), so SSH is already fully reachable over Tailscale
+    # without this. Set to false so port 22 is closed everywhere except
+    # tailscale0.
+    openFirewall = false;
+  };
+
+  # ── Firewall ──────────────────────────────────────────────────────────
+  # No general allowedTCPPorts here on purpose. Every service on this
+  # server (SSH, CouchDB, Jellyfin, the Starr stack, qBittorrent) is
+  # reachable only via the tailnet — see the trustedInterfaces comment in
+  # common/shared.nix. Family-facing access to Jellyfin/Jellyseerr goes
+  # through Tailscale Funnel instead of opening the firewall.
+  networking.firewall.enable = true;
+
+  # ── Shared media/vault storage + permissions group ─────────────────────
+  # See README for the full directory layout. Both couchdb.nix and
+  # media.nix reference the "media" group defined here.
+  users.groups.media = { };
+
+  # ── Users ─────────────────────────────────────────────────────────────
+  users.users.graintrain = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "media" ];
+    # Set a password with: passwd graintrain
+    # Or use: initialHashedPassword = "..."; (generate with mkpasswd)
+    #
+    # VERIFY BEFORE DEPLOYING: this must be the exact contents of
+    # ~/.ssh/id_ed25519.pub on the laptop (or whichever key you intend to
+    # SSH in with). There's no way to confirm from inside this repo that
+    # the key below matches an actual private key on your laptop — if it
+    # doesn't, `ssh graintrain@<server>` will be rejected with
+    # "Permission denied (publickey)". See the setup instructions for the
+    # exact command to check/generate/copy it.
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII0fASl+vD4hNqi8I4maxxeVDMNZzRvo3mhxe2U1G+4R graintrain@laptop"
+    ];
+  };
+
+  # ── Home Manager ──────────────────────────────────────────────────────
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
+    users.graintrain = import ../../users/graintrain/server.nix;
+  };
+
+# DO NOT TOUCH
+  system.stateVersion = "26.05";
+# DO NOT TOUCH
+}
