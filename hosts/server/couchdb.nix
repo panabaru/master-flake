@@ -31,6 +31,8 @@
     # Run that once (over SSH on the server itself, or from any tailnet
     # device against the tailnet hostname) and admin-party mode is
     # automatically disabled. See README for the full first-boot checklist.
+    
+    extraConfigFiles = [ "/var/lib/couchdb-secrets/admin.ini" ];
   };
 
   # ── Per-person vault databases ──────────────────────────────────────────
