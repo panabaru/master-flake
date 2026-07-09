@@ -29,6 +29,13 @@
     openFirewall = true;
   };
 
+ # --- Unfree ---
+  nixpkgs.config.allowUnfreePredicate = pkg: let
+    name = pkgs.lib.getName pkg;
+  in
+    builtins.elem name [ "obsidian" ] ||
+    pkgs.lib.hasInfix "steam" name;
+
  # Opens Tailscale's own UDP port (41641 by default) on every interface.
  # This has nothing to do with SSH/Jellyfin/CouchDB reachability (that's
  # entirely handled by trustedInterfaces below) — it's Tailscale's own
