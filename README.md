@@ -38,7 +38,7 @@ If your media lives on a separate drive, mount it at `/data` in `hosts/server/ha
 
 ## First-boot checklist (new server, or after moving to a new machine)
 
-1. Clone this repo to `~/Downloads/dotfilesAI` on every machine (the `nrs` shell alias in
+1. Clone this repo to `~/master-flake` on every machine (the `nrs` shell alias in
    `users/shared.nix` assumes this path).
 2. Replace the placeholder `hosts/<name>/hardware.nix` with the real one:
    `nixos-generate-config --show-hardware-config > hardware.nix`.
