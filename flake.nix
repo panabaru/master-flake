@@ -47,8 +47,8 @@
 	];
       };
 
-      # ── Server ──────────────────────────────────────────────────────────
-      server = nixpkgs.lib.nixosSystem {
+     # ── Servers ──────────────────────────────────────────────────────────
+      nixos-server-0 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };   # ADD: needed for home-manager
         modules = [
