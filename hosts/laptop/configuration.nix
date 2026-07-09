@@ -47,9 +47,9 @@ in
   nixpkgs.config.allowUnfreePredicate = pkg: let
     name = pkgs.lib.getName pkg;
   in
-    builtins.elem name [ "discord" "spotify" "obsidian" ] ||
-    pkgs.lib.hasInfix "steam" name;
- # --- Users ---
+    builtins.elem name [ "discord" "spotify" ] ||
+
+# --- Users ---
  # FIX: DocOrcs is desktop-only (see hosts/desktop/configuration.nix) —
  # was previously defined here by mistake.
   users.users.graintrain = {
