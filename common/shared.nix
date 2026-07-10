@@ -6,12 +6,13 @@
 
  # Core CLI tools every machine needs
   environment.systemPackages = with pkgs; [
-    neovim  	# Text editor
-    curl    	# Network transfer tool
-    wget    	# File downloader
-    git     	# Version control
+    neovim  		# Text editor
+    curl    		# Network transfer tool
+    wget    		# File downloader
+    git     		# Version control
     unzip
     zip
+    smartmontools 	# Check drive stats
   ];
  # Enable flakes + new nix CLI
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
