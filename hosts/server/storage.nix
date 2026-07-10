@@ -38,6 +38,7 @@
       "allow_other"
       "use_ino"
       "fsname=mergerfs-media"
+      "nofail"
     ];
   };
 

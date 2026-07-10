@@ -14,6 +14,7 @@
     # NOTE: graphical.nix is NOT imported here — no display server on a server
     ./couchdb.nix
     ./media.nix
+    ./storage.nix
   ];
 
   networking.hostName = "nixos-server-0";
