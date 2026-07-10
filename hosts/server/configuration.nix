@@ -57,7 +57,7 @@
     # Set a password with: passwd graintrain
     # Or use: initialHashedPassword = "..."; (generate with mkpasswd)
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII0fASl+vD4hNqi8I4maxxeVDMNZzRvo3mhxe2U1G+4R graintrain@laptop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKIv/w0TWtwDsyKFwg2MEmbHu1putdPXmo1bCETxyXZ6 graintrain@keemail.me"
     ];
   };
 
