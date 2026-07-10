@@ -32,10 +32,12 @@
     "d /data/media/movies 2775 root media -"
     "d /data/media/tv 2775 root media -"
     "d /data/media/music 2775 root media -"
+    "d /data/media/anime 2775 root media -"
     "d /data/torrents 2775 root media -"
     "d /data/torrents/movies 2775 root media -"
     "d /data/torrents/tv 2775 root media -"
     "d /data/torrents/music 2775 root media -"
+    "d /data/torrents/anime 2775 root media -"
   ];
 
   # ── Jellyfin ──────────────────────────────────────────────────────────
