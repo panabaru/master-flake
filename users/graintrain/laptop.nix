@@ -544,7 +544,7 @@
       color7  = "#bac2de"; color15 = "#a6adc8";
 
      # Window
-      background_opacity    = "0.75";
+      background_opacity    = "0.6";
       window_padding_width  = 12;
       confirm_os_window_close = 0;
 
