@@ -18,11 +18,6 @@
     ./caddy.nix
   ];
 
-  extraConfigFiles = [
-    "/var/lib/couchdb-secrets/admin.ini"
-    ./couchdb-livesync.ini
-  ];
-
   networking.hostName = "nixos-server-0";
 
  # ── Server packages ───────────────────────────────────────────────────
