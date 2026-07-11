@@ -15,6 +15,12 @@
     ./couchdb.nix
     ./media.nix
     ./storage.nix
+    ./caddy.nix
+  ];
+
+  extraConfigFiles = [
+    "/var/lib/couchdb-secrets/admin.ini"
+    ./couchdb-livesync.ini
   ];
 
   networking.hostName = "nixos-server-0";
