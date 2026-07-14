@@ -13,3 +13,4 @@
     enable = true;
     vpnNamespace = "mullvad";
   };
+}
