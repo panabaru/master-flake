@@ -5,7 +5,7 @@
     wireguardConfigFile = "/etc/wireguard-secrets/us-nyc-wg-501.conf";
     accesibleFrom = [ "100.64.0.0/10" ];  
     portMappings = [
-      { from = 8080; to = 8080 }
+      { from = 8080; to = 8080; }
     ];
   };
 
@@ -13,4 +13,3 @@
     enable = true;
     vpnNamespace = "mullvad";
   };
-}
