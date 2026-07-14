@@ -16,6 +16,7 @@
     ./media.nix
     ./storage.nix
     ./caddy.nix
+    ./vpn.nix
   ];
 
   networking.hostName = "nixos-server-0";

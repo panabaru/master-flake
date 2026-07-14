@@ -20,6 +20,10 @@
       url = "github:rccyx/thyx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vpn-confinement = {
+      url = "github:Maroka-chan/VPN-confinement";
+      inpus.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, thyx, ... }@inputs: {
@@ -54,6 +58,7 @@
         modules = [
           ./hosts/server/configuration.nix
           home-manager.nixosModules.home-manager # ADD: for graintrain on server
+	  vpn-confinement.nixosModule.default
         ];
       };
 
