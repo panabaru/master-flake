@@ -58,7 +58,7 @@
         modules = [
           ./hosts/server/configuration.nix
           home-manager.nixosModules.home-manager # ADD: for graintrain on server
-	  vpn-confinement.nixosModule.default
+	  vpn-confinement.nixosModules.default
         ];
       };
 
