@@ -25,7 +25,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, thyx, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, thyx, vpn-confinement, ... }@inputs: {
     nixosConfigurations = {
 
       # --- Laptop ---
