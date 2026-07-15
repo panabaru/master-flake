@@ -47,7 +47,7 @@ in
   nixpkgs.config.allowUnfreePredicate = pkg: let
     name = pkgs.lib.getName pkg;
   in
-    builtins.elem name [ "discord" "spotify" "obsidian" ] ||
+    builtins.elem name [ "discord" "spotify" "obsidian" "mdk-sdk" ] ||
     pkgs.lib.hasInfix "steam" name;
 
 # --- Users ---

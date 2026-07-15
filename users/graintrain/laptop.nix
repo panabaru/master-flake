@@ -7,7 +7,7 @@
 
  # --- Laptop-specific packages ---
   home.packages = with pkgs; [
-    
+    fladder
   ];
 
  # --- Screenshot directory ---
