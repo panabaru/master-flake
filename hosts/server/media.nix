@@ -50,7 +50,7 @@
   };
 
   # ── Jellyseerr — the "request a show" UI for family ─────────────────────
-  services.jellyseerr = {
+  services.seerr = {
     enable = true;
     # port defaults to 5055
   };
@@ -92,6 +92,12 @@
     # this firewall — happy to wire that in once you tell me which
     # provider/config you're using (e.g. an OpenVPN or WireGuard config
     # file qBittorrent's network namespace should bind to).
+  };
+
+  services.flaresolverr = {
+    enable = true;
+    openFirewall = true;
+    port = 8191;
   };
 
   # ── Tailscale Funnel — public URL for Jellyfin + Jellyseerr only ────────
