@@ -18,6 +18,7 @@
     ./caddy.nix
     ./vpn.nix
     ./musicseerr.nix
+    ./minecraft.nix
   ];
 
   networking.hostName = "nixos-server-0";
@@ -30,6 +31,8 @@
     btop   # Nicer process/resource monitor
     rsync  # File sync/backup utility
   ];
+
+  services.minecraft-servers.environmentFile = "/var/lib/secrets/minecraft-env";
 
   # ── SSH ───────────────────────────────────────────────────────────────
   services.openssh = {

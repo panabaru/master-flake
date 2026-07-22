@@ -23,9 +23,12 @@
     vpn-confinement = {
       url = "github:Maroka-chan/VPN-Confinement";
     };
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, thyx, vpn-confinement, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, thyx, vpn-confinement, nix-minecraft, ... }@inputs: {
     nixosConfigurations = {
 
       # --- Laptop ---
@@ -58,6 +61,7 @@
           ./hosts/server/configuration.nix
           home-manager.nixosModules.home-manager # ADD: for graintrain on server
 	  vpn-confinement.nixosModules.default
+	  nix-minecraft.nixosModules.default
         ];
       };
 
