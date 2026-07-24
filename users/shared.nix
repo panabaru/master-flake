@@ -22,6 +22,7 @@ in {
     # Example: unzip, ripgrep, etc.
     fladder		# Movie/TV Jellyfin client
     gelly		# Music Jellyfin client
+    localsend 		# Send files locally
   ];
 
  # --- Shell ---
