@@ -20,6 +20,8 @@ in {
     prismlauncher	# Minecraft launcher
     # Add packages both users want here
     # Example: unzip, ripgrep, etc.
+    fladder		# Movie/TV Jellyfin client
+    gelly		# Music Jellyfin client
   ];
 
  # --- Shell ---
