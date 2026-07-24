@@ -62,4 +62,9 @@
     STEAM_FRAME_FORCE_CLOSE = "0";
     GAMEMODE_PREFIX = "gamemoderun";
   };
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
 }
