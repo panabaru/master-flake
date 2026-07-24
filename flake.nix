@@ -61,7 +61,6 @@
           ./hosts/server/configuration.nix
           home-manager.nixosModules.home-manager # ADD: for graintrain on server
 	  vpn-confinement.nixosModules.default
-	  nix-minecraft.nixosModules.default
         ];
       };
 
