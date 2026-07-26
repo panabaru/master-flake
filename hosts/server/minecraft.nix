@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
   nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
@@ -14,10 +14,10 @@
       enable = true;
       autoStart = true;
 
-#      package = pkgs.fabricServers.fabric-1_20_1.override {
-#        loaderVersion = "0.15.11";
-#      };
-
+      package = pkgs.fabricServers.fabric-26_1_2.override {
+        jre_headless = pkgs.temurin-jre-bin-25;
+        loaderVersion = "0.19.2";
+      };
       jvmOpts = "-Xms2G -Xmx8G";
 
       serverProperties = {
@@ -29,6 +29,10 @@
         white-list = false;
         enable-rcon = true;
         "rcon-password" = "@rcon_password@";
+      };
+
+      operators = {
+        graintrain = "168a0ea4-556b-47e8-b454-9df60a62cbc9";
       };
     };
   };

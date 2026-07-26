@@ -21,6 +21,12 @@
     ./minecraft.nix
   ];
 
+  nixpkgs.config.allowUnfreePredicate = pkg: let
+    name = pkgs.lib.getName pkg;
+  in
+    builtins.elem name [ "mdk-sdk" "minecraft-server-26.1.2" ] ||
+    pkgs.lib.hasInfix "" name;
+
   networking.hostName = "nixos-server-0";
   networking.enableIPv6 = false;
  # ── Server packages ───────────────────────────────────────────────────
@@ -50,7 +56,9 @@
   # reachable only via the tailnet — see the trustedInterfaces comment in
   # common/shared.nix. Family-facing access to Jellyfin/Jellyseerr goes
   # through Tailscale Funnel instead of opening the firewall.
-  networking.firewall.enable = true;
+  networking.firewall = {
+    enable = true;
+  };
 
   # ── Shared media/vault storage + permissions group ─────────────────────
   # See README for the full directory layout. Both couchdb.nix and
