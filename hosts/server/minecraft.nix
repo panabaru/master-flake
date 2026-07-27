@@ -18,7 +18,7 @@
           url = "https://cdn.modrinth.com/data/1ocGzRHv/versions/zCNpmrT6/Vanilla%20Perfected%201.0.3%2B26.1.2.mrpack";
           # First build will fail with a hash mismatch and print the real
           # value to use here - copy that in and rebuild. See note below.
-          packHash = pkgs.lib.fakeHash;
+          packHash = "sha256-fZBGgw4CWP8Sth6GVORHOStMz9yOnFT6CxxopgQanM0=";
           side = "server";
         };
       in
