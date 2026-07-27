@@ -11,13 +11,15 @@
 
     servers.modded =
       let
-        # Vanilla Perfected, build "Tiny Takeover Hotfix 3.0" (1.0.3+26.1.2),
-        # the current release for Minecraft 26.1.2 / Fabric as of July 2026.
-        # https://modrinth.com/modpack/vanilla-perfected/version/1.0.3+26.1.2
+        # Vanilla Perfected, build "Chaos Cubed Hotfix 3.0" (1.0.3+26.2),
+        # the current release for Minecraft 26.2 / Fabric as of July 2026.
+        # Get the download link from:
+        # https://modrinth.com/modpack/vanilla-perfected/versions
+        # (right-click the "Chaos Cubed Hotfix 3.0" Download button -> copy link)
         modpack = pkgs.fetchModrinthModpack {
-          url = "https://cdn.modrinth.com/data/1ocGzRHv/versions/zCNpmrT6/Vanilla%20Perfected%201.0.3%2B26.1.2.mrpack";
-          # First build will fail with a hash mismatch and print the real
-          # value to use here - copy that in and rebuild. See note below.
+          url = "PASTE THE .mrpack DOWNLOAD LINK HERE";
+          # Same trick as last time: first build fails with a hash mismatch
+          # and prints the real value - copy that in and rebuild.
           packHash = pkgs.lib.fakeHash;
           side = "server";
         };
@@ -26,9 +28,9 @@
         enable = true;
         autoStart = true;
 
-        package = pkgs.fabricServers.fabric-26_1_2.override {
-          jre_headless = pkgs.temurin-jre-bin-25;
-          loaderVersion = "0.19.2";
+        package = pkgs.fabricServers.fabric-26_2.override {
+          jre_headless = pkgs.temurin-jre-bin-25; # 26.2 still requires Java 25, same as 26.1
+          loaderVersion = "0.19.3"; # minimum recommended loader for 26.2
         };
         jvmOpts = "-Xms2G -Xmx8G";
 
