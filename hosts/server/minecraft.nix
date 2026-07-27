@@ -20,7 +20,7 @@
           url = "https://cdn.modrinth.com/data/1ocGzRHv/versions/Bu8RKHri/Vanilla%20Perfected%201.0.0%2B26.3.mrpack?mr_download_reason=standalone";
           # Same trick as last time: first build fails with a hash mismatch
           # and prints the real value - copy that in and rebuild.
-          packHash = pkgs.lib.fakeHash;
+          packHash = "sha256-CQ18cIgmdKtdoF9BotV8H7aBzpyuJhn/rRtcL8UoX2c=";
           side = "server";
         };
       in
