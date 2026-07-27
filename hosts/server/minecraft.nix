@@ -28,7 +28,7 @@
         motd = "Vanilla Prrrfected";
         white-list = false;
         enable-rcon = true;
-        "rcon-password" = "@rcon_password@";
+        "rcon.password" = "@rcon_password@";
       };
 
       operators = {
