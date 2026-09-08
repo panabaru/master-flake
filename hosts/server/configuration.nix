@@ -28,7 +28,6 @@
     pkgs.lib.hasInfix "" name;
 
   networking.hostName = "nixos-server-0";
-  networking.enableIPv6 = false;
  # ── Server packages ───────────────────────────────────────────────────
  # These are system-wide CLI tools for anyone SSHing in.
   environment.systemPackages = with pkgs; [
@@ -58,8 +57,9 @@
   # through Tailscale Funnel instead of opening the firewall.
   networking.firewall = {
     enable = true;
+    allowedTCPPorts = [ 25565 ];
   };
-
+  
   # ── Shared media/vault storage + permissions group ─────────────────────
   # See README for the full directory layout. Both couchdb.nix and
   # media.nix reference the "media" group defined here.

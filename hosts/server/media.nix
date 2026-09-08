@@ -47,6 +47,7 @@
     # interface. Removed — reachability is tailnet-only via
     # trustedInterfaces, plus a public URL via Funnel below.
     group = "media"; # so it can read /data/media
+    openFirewall = true;
   };
 
   # ── Jellyseerr — the "request a show" UI for family ─────────────────────

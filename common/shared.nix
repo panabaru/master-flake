@@ -54,5 +54,5 @@
  # Jellyfin/Jellyseerr additionally get a public URL via Tailscale Funnel
  # (see hosts/server/media.nix) for family who don't want to install
  # Tailscale.
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  networking.firewall.trustedInterfaces = [ "tailscale0" "192.168.68.0/24" ];
 }
