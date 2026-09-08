@@ -7,7 +7,8 @@
 
  # --- Laptop-specific packages ---
   home.packages = with pkgs; [
-    
+    texlive.combined.scheme-full
+    pkgs.haskellPackages.pandoc-cli
   ];
 
  # --- Screenshot directory ---
