@@ -7,13 +7,54 @@
 
  # --- Laptop-specific packages ---
   home.packages = with pkgs; [
+   # Tex
     texlive.combined.scheme-full
     pkgs.haskellPackages.pandoc-cli
+   # Open-WebUI
+    pkgs.open-webui
+   # Rust
+    rustup
+    rustc
   ];
 
  # --- Screenshot directory ---
  # Creates ~/Pictures/Screenshots so the screenshot keybind has somewhere to save
   home.file."Pictures/Screenshots/.keep".text = "";
+
+  services.ollama = {
+    enable = true;
+    acceleration = null;
+  };
+
+  systemd.user.services.open-webui = {
+    Unit = {
+      Description = "Open WebUI User Service";
+      After = [ "network.target" ];
+    };
+
+    Service = {
+      Type = "simple";
+      # Runs the native NixOS serve command
+      ExecStart = "${pkgs.open-webui}/bin/open-webui serve";
+      Restart = "always";
+      RestartSec = 5;
+
+      # Environment variables for application state & security
+      Environment = [
+        "DATA_DIR=%h/.local/share/open-webui"
+        "WEBUI_SECRET_KEY=change_this_to_a_secure_random_string"
+        "PORT=8080"
+        "HOST=127.0.0.1" # Change to "0.0.0.0" if you need to access it from other local devices
+
+        # If you are using Ollama, tell Open WebUI where to find it:
+        "OLLAMA_BASE_URL=http://127.0.0.1:11434"
+      ];
+    };
+
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
 
  # --- Wallpaper placeholder ---
  # Put any image you like at ~/Pictures/wallpaper.jpg and Hyprland will use it.
