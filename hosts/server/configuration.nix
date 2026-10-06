@@ -69,7 +69,7 @@
   hardware.graphics.enable = true;   # formerly hardware.opengl.enable
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
     modesetting.enable = true;
     open = false;  # Pascal (GP107 / 10-series) requires the proprietary module,
                    # not NVIDIA's newer open-source kernel module (Turing+ only)
