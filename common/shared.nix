@@ -30,6 +30,8 @@
     openFirewall = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
+
  # --- Unfree ---
   nixpkgs.config.allowUnfreePredicate = pkg: let
     name = pkgs.lib.getName pkg;

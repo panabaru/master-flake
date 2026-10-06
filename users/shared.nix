@@ -50,6 +50,8 @@ in {
     };
   };
 
+  programs.home-manager.enable = true;
+
 # DO NOT CHANGE
   home.stateVersion = "26.05";
 # DO NOT CHANGE
