@@ -21,6 +21,7 @@ hosts/<name>/configuration.nix — per-machine system config
 hosts/<name>/hardware.nix      — per-machine generated hardware config (disks, kernel modules)
 hosts/server/couchdb.nix       — Obsidian vault sync (CouchDB)
 hosts/server/media.nix         — Jellyfin + the *arr stack + qBittorrent
+hosts/server/pihole.nix        — Pi-hole network-wide ad blocking (DNS on :53, dashboard on :8053)
 users/graintrain/*.nix         — graintrain's home-manager config, one file per host
 users/DocOrcs/home.nix         — DocOrcs's home-manager config (desktop only)
 users/shared.nix               — home-manager settings shared by every user on every host
@@ -56,6 +57,17 @@ If your media lives on a separate drive, mount it at `/data` in `hosts/server/ha
    plugin at it — see `hosts/server/couchdb.nix`.
 8. First-time setup for each media app (Jellyfin library, Prowlarr indexers, connecting
    Sonarr/Radarr/Lidarr to Prowlarr + qBittorrent) is done once through each app's own web UI.
+9. Pi-hole (ad blocking), after the first rebuild of the server:
+   - Reserve a fixed LAN IP for the server in your router's DHCP settings (devices will be
+     pointed at this address, so it must not change).
+   - Set your router's DNS server (the "DHCP DNS" / "LAN DNS" setting, not the WAN one) to that
+     IP. Every device on the home network is then filtered automatically. Leave a secondary
+     DNS blank, or ads will leak through it.
+   - For devices away from home: in the Tailscale admin console → DNS, add the server's
+     Tailscale IP as a global nameserver and turn on "Override DNS servers".
+   - Dashboard: `http://nixos-server-0.tail782d0d.ts.net:8053/admin` (tailnet only).
+   - Optional dashboard password — see the comment in `hosts/server/pihole.nix`.
+   - Test: `dig @<server-ip> doubleclick.net` should return `0.0.0.0`.
 
 ## Rebuilding after a config change
 

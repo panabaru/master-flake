@@ -1,6 +1,7 @@
 # Server — headless, no GUI
 # Hosts: Obsidian vault sync (CouchDB) + media stack (Jellyfin/Jellyseerr/
-# Sonarr/Radarr/Lidarr/Prowlarr/qBittorrent). Everything on this box is
+# Sonarr/Radarr/Lidarr/Prowlarr/qBittorrent) + Pi-hole network ad blocking
+# (hosts/server/pihole.nix). Everything on this box is
 # reachable only over the tailnet (see common/shared.nix's
 # `networking.firewall.trustedInterfaces`), except Jellyfin + Jellyseerr,
 # which also get a public URL via Tailscale Funnel for family who don't
@@ -19,6 +20,7 @@
     ./vpn.nix
     ./musicseerr.nix
     ./minecraft.nix
+    ./pihole.nix
   ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: let
@@ -55,6 +57,8 @@
   # reachable only via the tailnet — see the trustedInterfaces comment in
   # common/shared.nix. Family-facing access to Jellyfin/Jellyseerr goes
   # through Tailscale Funnel instead of opening the firewall.
+  # Exception: Pi-hole's DNS port (53) is opened by pihole.nix so devices on
+  # the home LAN can use it; its dashboard (8053) stays tailnet-only.
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 25565 ];
